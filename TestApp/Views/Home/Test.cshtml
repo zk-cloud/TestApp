@@ -1,0 +1,35 @@
+﻿
+<body>
+    <div>
+        name:<input id="username" name="name"><br>
+        password:<input id="password" name="password"><br>
+        <input onclick="login()" type="button" value="提交" />
+    </div>
+</body>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    function login() {
+        $.ajax({
+            url: "https://localhost:44302/api/OAuth/Create", //要请求的后端地址
+            type: "POST", //数据发送的方式(POST或者GET)
+            data: {
+                obj: "123123123",
+                id: "",
+                userName: $("#username").val(),
+                passWord: $("#password").val()
+            }, //需要传递的参数
+            dataType: "json", //后端返回的数据格式
+            success: function (result) {//ajax请求成功后触发的方法
+                alert(result.res);
+                console.log(result); //result为响应内容
+            },
+            error: function () {//ajax请求失败后触发的方法
+                console.log('Send Request Fail..');
+            }
+        })
+    }
+    
+</script>
+
+
