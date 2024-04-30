@@ -5,6 +5,7 @@ using Quartz;
 using Quartz.Impl;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,11 +14,14 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using TestApp.Jobs;
 using TestApp.Windsor;
+using XFramework.XInject.MVC;
+using XFramework.XInject;
 
 namespace TestApp
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static ApplicationContext applicationContext { get; set; }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -25,9 +29,22 @@ namespace TestApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            IWindsorContainer container = new WindsorContainer();
-            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container));
-            ComponentRegistrar.AddComponentsTo(container);
+            // 应用程序下上文
+            applicationContext = new ClassPathXmlApplicationContext(
+                Path.Combine(HttpRuntime.AppDomainAppPath,
+                    Path.Combine("bin", "Bean_Config.xml")
+                )
+            );
+            // 重写ControllerFactory以便于注入
+            ControllerBuilder.Current.SetControllerFactory(
+            new XInjectControllerFactory()
+                {
+                    applicationContext = applicationContext
+                });
+
+            //IWindsorContainer container = new WindsorContainer();
+            //ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container));
+            //ComponentRegistrar.AddComponentsTo(container);
 
             MainAsync();
         }

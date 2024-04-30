@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+  <auto-scan assembly="XFramework.Web" path="" />
+  <bean name="sqlServerTemplFactory" type="XFramework.XDataBase.DbTemplateFactory" assembly="XFramework.XDataBase">
+    <property name="DataBase" value="SqlServer" beanid="" />
+    <property name="DbSetting" value="WechatPlatform" beanid="" />
+  </bean>
+  <bean name="signUserDao" type="XFramework.Web.Models.SignUserDao" assembly="XFramework.Web" />
+  <bean name="qyUserDao" type="XFramework.Web.Models.QyUserDao" assembly="XFramework.Web" />
+</beans>

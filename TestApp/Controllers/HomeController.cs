@@ -15,15 +15,23 @@ using System.Web.Mvc;
 using TestApp.Entity;
 using TestApp.Filter;
 using TestApp.Services;
+using XFramework.XInject.Attributes;
 
 namespace TestApp.Controllers
 {
     public class HomeController : Controller
     {
-        public UserServices userServices { get; set; }
+        [Autowired]
+        UserServices userServices { get; set; }
 
         public ActionResult Index()
         {
+            userServices.Login(new User
+            {
+                ID = Guid.NewGuid(),
+                UserName = "kunzhou",
+                PassWord = "123456"
+            });
             return View();
         }
 
