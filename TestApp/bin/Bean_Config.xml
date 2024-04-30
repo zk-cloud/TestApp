@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+	<auto-scan assembly="TestApp" path="" />
+	<auto-scan assembly="TestApp.Dao" path="" />
+	<auto-scan assembly="TestApp.Entity" path="" />
+	<auto-scan assembly="TestApp.Service" path="" />
+</beans>
