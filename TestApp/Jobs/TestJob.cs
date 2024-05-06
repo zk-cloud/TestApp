@@ -9,9 +9,9 @@ namespace TestApp.Jobs
 {
     public class TestJob : IJob
     {
-        public Task Execute(IJobExecutionContext context)
+        public void Execute(IJobExecutionContext context)
         {
-            return Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(() =>
             {
                 Test();
             });
