@@ -43,14 +43,19 @@ namespace TestApp
             {
                 try
                 {
-                    scheduler.Shutdown(false);
+                    _ = scheduler.Shutdown(false);
                 }
                 catch { }
             }
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
-            scheduler = schedulerFactory.GetScheduler();
-            scheduler.Start();
+            scheduler = await schedulerFactory.GetScheduler();
+            _ = scheduler.Start();
             #endregion
+        }
+
+        protected void Application_End()
+        {
+            _ = scheduler.Shutdown(false);
         }
     }
 }
